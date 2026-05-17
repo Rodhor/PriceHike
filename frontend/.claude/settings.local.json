@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun run *)",
+      "Bash(curl -s http://localhost:5173)",
+"Bash(pkill -f \"vite dev\")",
+      "Bash(npm show *)",
+      "Bash(bun remove *)",
+      "Bash(bun add *)"
+    ]
+  }
+}

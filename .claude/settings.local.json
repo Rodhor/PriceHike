@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun remove *)",
+      "WebFetch(domain:claude.ai)",
+      "Bash(go build *)",
+      "Bash(echo \"---exit: $?---\")",
+      "Bash(go vet *)",
+      "Bash(bun add *)",
+      "Bash(bun run *)",
+      "Bash(awk '/<style>/,/<\\\\/style>/' /home/chrisn/Documents/Projects/PriceHike-NewTest/docs/frontendHandoff/index.html)",
+      "Bash(echo \"build exit: $?\")",
+      "Bash(echo \"vet exit: $?\")",
+      "Bash(echo \"build: $?\")",
+      "Bash(echo \"vet: $?\")"
+    ]
+  }
+}
