@@ -107,6 +107,16 @@ func (r *Rule) Validate(columnCount int) error {
 			return fmt.Errorf("%w: column index must be within range", ErrInvalidRule)
 		}
 	}
+	if lt := r.Filter.LessThan; lt != nil {
+		if lt.Column < 0 || lt.Column >= columnCount {
+			return fmt.Errorf("%w: LessThanFilter column index %d out of range (have %d columns)", ErrInvalidRule, lt.Column, columnCount)
+		}
+	}
+	if gt := r.Filter.GreaterThan; gt != nil {
+		if gt.Column < 0 || gt.Column >= columnCount {
+			return fmt.Errorf("%w: GreaterThanFilter column index %d out of range (have %d columns)", ErrInvalidRule, gt.Column, columnCount)
+		}
+	}
 	return nil
 }
 

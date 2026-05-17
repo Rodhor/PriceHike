@@ -12,7 +12,6 @@ type SettingsService struct {
 
 func NewSettingsService() *SettingsService {
 	return &SettingsService{
-		mu:       sync.RWMutex{},
 		settings: domain.DefaultSettings(),
 	}
 }
@@ -33,7 +32,7 @@ func (s *SettingsService) SetSettings(newSettings domain.Settings) error {
 	return nil
 }
 
-func (s *SettingsService) SnapshotSettings() domain.Settings {
+func (s *SettingsService) snapshotSettings() domain.Settings {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	return s.settings

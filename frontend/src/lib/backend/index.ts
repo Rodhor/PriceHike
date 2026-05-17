@@ -162,11 +162,14 @@ export const backend = {
 	}
 };
 
-export function onFileDropped(cb: (filename: string, dataset: Dataset) => void): () => void {
+export function onFileDropped(
+	cb: (filename: string, path: string, dataset: Dataset) => void
+): () => void {
 	return EventsOn('file:dropped', (...args: unknown[]) => {
 		const filename = args[0] as string;
-		const dataset = args[1] as Dataset;
-		cb(filename, dataset);
+		const path = args[1] as string;
+		const dataset = args[2] as Dataset;
+		cb(filename, path, dataset);
 	});
 }
 

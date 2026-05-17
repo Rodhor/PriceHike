@@ -36,7 +36,7 @@ func (s *Store) Get() (domain.Dataset, error) {
 	return s.dataset.Clone(), nil
 }
 
-func (s *Store) Filepath() string {
+func (s *Store) Path() string {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 

@@ -13,16 +13,6 @@ func ApplyRules(rules []domain.Rule, ds domain.Dataset, decimalPlaces int) (doma
 		if err := rule.Validate(out.ColumnCount()); err != nil {
 			return domain.Dataset{}, stats, fmt.Errorf("rule #%d: %w", i+1, err)
 		}
-		if lt := rule.Filter.LessThan; lt != nil {
-			if lt.Column < 0 || lt.Column >= out.ColumnCount() {
-				return domain.Dataset{}, stats, fmt.Errorf("rule #%d: LessThanFilter references column index %d which is out of range (have %d columns: %v)", i+1, lt.Column, out.ColumnCount(), out.PriceHeaders)
-			}
-		}
-		if gt := rule.Filter.GreaterThan; gt != nil {
-			if gt.Column < 0 || gt.Column >= out.ColumnCount() {
-				return domain.Dataset{}, stats, fmt.Errorf("rule #%d: GreaterThanFilter references column index %d which is out of range (have %d columns: %v)", i+1, gt.Column, out.ColumnCount(), out.PriceHeaders)
-			}
-		}
 		cols := targetColumns(rule, out.ColumnCount())
 		stat := domain.RuleStat{RuleID: rule.ID}
 		for itemIdx := range out.Items {

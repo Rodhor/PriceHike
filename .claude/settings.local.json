@@ -12,7 +12,16 @@
       "Bash(echo \"build exit: $?\")",
       "Bash(echo \"vet exit: $?\")",
       "Bash(echo \"build: $?\")",
-      "Bash(echo \"vet: $?\")"
+      "Bash(echo \"vet: $?\")",
+      "WebFetch(domain:wails.io)",
+      "Read(//home/chrisn/go/pkg/mod/**)",
+      "Bash(find / -maxdepth 8 -type d -path \"*/wailsapp/wails/v2*\")",
+      "Bash(go mod *)",
+      "Bash(go env *)",
+      "Bash(echo \"---build exit: $?---\")",
+      "Bash(wails version *)",
+      "Bash(wails generate *)",
+      "Bash(npm run *)"
     ]
   }
 }

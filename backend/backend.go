@@ -11,8 +11,6 @@ type Backend struct {
 	*services.RulesService
 	*services.SettingsService
 	*services.DialogService
-
-	dialogService *services.DialogService
 }
 
 func New() *Backend {
@@ -35,8 +33,10 @@ func New() *Backend {
 	}
 }
 
-// Attach attaches the backend to the given context.
-// This is not called from the frontend and should only be called once.
-func (b *Backend) Attach(ctx context.Context) {
-	b.DialogService.AttachDialogContext(ctx)
+// Attach wires the Wails runtime context into the backend's services. Declared
+// as a package-level function (not a method on *Backend) so Wails' binding
+// reflection doesn't expose it to JS — only struct methods become callable.
+// Call once from app.startup.
+func Attach(b *Backend, ctx context.Context) {
+	services.InitDialogContext(b.DialogService, ctx)
 }

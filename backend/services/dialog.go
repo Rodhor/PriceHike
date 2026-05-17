@@ -15,7 +15,10 @@ func NewDialogService() *DialogService {
 	return &DialogService{}
 }
 
-func (s *DialogService) AttachDialogContext(ctx context.Context) {
+// InitDialogContext wires the runtime context into a DialogService. Declared
+// as a package-level function (not a method) so Wails' binding reflection
+// doesn't expose it to JS — only methods on the bound struct become callable.
+func InitDialogContext(s *DialogService, ctx context.Context) {
 	s.ctx = ctx
 }
 
@@ -31,9 +34,6 @@ func (s *DialogService) SelectImportFile() (string, error) {
 	})
 	if err != nil {
 		return "", err
-	}
-	if path == "" {
-		return "", fmt.Errorf("cancelled")
 	}
 	return path, nil
 }

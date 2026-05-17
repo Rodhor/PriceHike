@@ -24,7 +24,7 @@ func NewApp() *App {
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
-	a.Backend.Attach(ctx)
+	backend.Attach(a.Backend, ctx)
 
 	runtime.OnFileDrop(ctx, func(x, y int, paths []string) {
 		if len(paths) == 0 {
@@ -45,6 +45,6 @@ func (a *App) startup(ctx context.Context) {
 			runtime.EventsEmit(ctx, "file:error", err.Error())
 			return
 		}
-		runtime.EventsEmit(ctx, "file:dropped", filepath.Base(path), ds)
+		runtime.EventsEmit(ctx, "file:dropped", filepath.Base(path), path, ds)
 	})
 }

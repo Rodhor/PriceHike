@@ -13,7 +13,7 @@ import (
 )
 
 type SettingsProvider interface {
-	SnapshotSettings() domain.Settings
+	snapshotSettings() domain.Settings
 }
 
 type DataStore interface {
@@ -34,7 +34,7 @@ func NewDatasetService(settingsProvider SettingsProvider, store DataStore) *Data
 }
 
 func (s *DatasetService) LoadFile(path string) (domain.Dataset, error) {
-	settings := s.settingsProvider.SnapshotSettings()
+	settings := s.settingsProvider.snapshotSettings()
 	var (
 		ds  *domain.Dataset
 		err error
@@ -59,12 +59,12 @@ func (s *DatasetService) GeneratePreview(rules []domain.Rule, sampleSize int) (d
 	if err != nil {
 		return domain.PreviewResult{}, err
 	}
-	return engine.Preview(rules, ds, sampleSize, s.settingsProvider.SnapshotSettings().DefaultDecimalPlaces)
+	return engine.Preview(rules, ds, sampleSize, s.settingsProvider.snapshotSettings().DefaultDecimalPlaces)
 }
 
 func (s *DatasetService) ApplyAndExportCSV(rules []domain.Rule, destPath string) (domain.ExportReport, error) {
 	return s.exportWith(rules, destPath, func(ds domain.Dataset) error {
-		return csvio.Write(destPath, ds, s.settingsProvider.SnapshotSettings().Delimiter())
+		return csvio.Write(destPath, ds, s.settingsProvider.snapshotSettings().Delimiter())
 	})
 
 }
@@ -85,7 +85,7 @@ func (s *DatasetService) exportWith(
 	if err != nil {
 		return domain.ExportReport{}, err
 	}
-	out, _, err := engine.ApplyRules(rules, ds, s.settingsProvider.SnapshotSettings().DefaultDecimalPlaces)
+	out, _, err := engine.ApplyRules(rules, ds, s.settingsProvider.snapshotSettings().DefaultDecimalPlaces)
 	if err != nil {
 		return domain.ExportReport{}, err
 	}

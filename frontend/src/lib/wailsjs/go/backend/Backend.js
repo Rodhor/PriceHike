@@ -10,14 +10,6 @@ export function ApplyAndExportXLSX(arg1, arg2) {
   return window['go']['backend']['Backend']['ApplyAndExportXLSX'](arg1, arg2);
 }
 
-export function Attach(arg1) {
-  return window['go']['backend']['Backend']['Attach'](arg1);
-}
-
-export function AttachDialogContext(arg1) {
-  return window['go']['backend']['Backend']['AttachDialogContext'](arg1);
-}
-
 export function ExportRules(arg1, arg2) {
   return window['go']['backend']['Backend']['ExportRules'](arg1, arg2);
 }
@@ -52,8 +44,4 @@ export function SelectImportFile() {
 
 export function SetSettings(arg1) {
   return window['go']['backend']['Backend']['SetSettings'](arg1);
-}
-
-export function SnapshotSettings() {
-  return window['go']['backend']['Backend']['SnapshotSettings']();
 }

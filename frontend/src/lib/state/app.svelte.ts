@@ -90,12 +90,8 @@ class AppState {
 		}
 
 		this.disposers.push(
-			onFileDropped((filename, dataset) => {
-				// Drop events only carry the basename. We don't have the full
-				// path, so `applySettings` reloads will fall back to the
-				// "re-import to apply" notice for dropped files. Tracked in
-				// docs/Cleanup-Backend.md as a small drop-event payload tweak.
-				this.acceptLoaded(dataset, filename, null);
+			onFileDropped((filename, path, dataset) => {
+				this.acceptLoaded(dataset, filename, path);
 			})
 		);
 		this.disposers.push(
@@ -118,8 +114,7 @@ class AppState {
 		try {
 			path = await backend.selectImportFile();
 		} catch (err) {
-			const msg = messageFor(err);
-			if (msg !== 'cancelled') this.setError(msg);
+			this.setError(messageFor(err));
 			return;
 		}
 		if (!path) return;
@@ -166,8 +161,7 @@ class AppState {
 		try {
 			path = await backend.selectImportFile();
 		} catch (err) {
-			const msg = messageFor(err);
-			if (msg !== 'cancelled') this.setError(msg);
+			this.setError(messageFor(err));
 			return;
 		}
 		if (!path) return;
@@ -315,8 +309,7 @@ class AppState {
 		try {
 			path = await backend.selectExportPath(defaultName, kind);
 		} catch (err) {
-			const msg = messageFor(err);
-			if (msg !== 'cancelled') this.setError(msg);
+			this.setError(messageFor(err));
 			return;
 		}
 		if (!path) return;
@@ -345,8 +338,7 @@ class AppState {
 		try {
 			path = await backend.selectExportPath(defaultName, 'rules-json');
 		} catch (err) {
-			const msg = messageFor(err);
-			if (msg !== 'cancelled') this.setError(msg);
+			this.setError(messageFor(err));
 			return;
 		}
 		if (!path) return;

@@ -19,14 +19,12 @@ func main() {
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:           "PriceHike",
-		Width:           1500,
-		Height:          1000,
-		Frameless:       false,
-		MinWidth:        1300,
-		MinHeight:       800,
-		CSSDragProperty: "--wails-drop-target",
-		CSSDragValue:    "drop",
+		Title:     "PriceHike",
+		Width:     1500,
+		Height:    1000,
+		Frameless: false,
+		MinWidth:  1300,
+		MinHeight: 800,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
